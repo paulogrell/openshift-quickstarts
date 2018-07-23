@@ -137,11 +137,11 @@
             </build>
         </profile>
 
-    </profiles>
+
     
     	<!-- Repositórios -->
 	<!-- ============ -->
-	<profiles>
+
 		<profile>
 			<id>bacen-repositorios</id>
 			<repositories>
