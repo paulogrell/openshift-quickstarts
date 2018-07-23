@@ -19,94 +19,116 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
   
-  <!-- proxies
-     This is a list of proxies which can be used on this machine to connect to the network.
-     Unless otherwise specified (by system property or command-line switch), the first proxy
-     specification in this list marked as active will be used.If you are accessing network
-     via a proxy server, Un-comment the proxy options and fill in your proxy server detail.
-   -->
-  <proxies>
-    <!-- proxy
-      Specification for one proxy, to be used in connecting to the network.
+	<!-- Repositórios -->
+	<!-- ============ -->
+	<profiles>
+		<profile>
+			<id>bacen-repositorios</id>
+			<repositories>
+				<repository>
+					<id>bacen-releases</id>
+					<name>Repositorio Bacen de releases</name>
+					<url>http://maven/nexus/content/groups/releases</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>bacen-snapshots</id>
+					<name>Repositorio Bacen de snapshots</name>
+					<url>http://maven/nexus/content/groups/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>bacen-releases</id>
+					<name>Repositorio Bacen de releases</name>
+					<url>http://maven/nexus/content/groups/releases</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
+					<id>bacen-snapshots</id>
+					<name>Repositorio Bacen de snapshots</name>
+					<url>http://maven/nexus/content/groups/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
 
-    <proxy>
-      <id>optional</id>
-      <active>true</active>
-      <protocol>http</protocol>
-      <username>proxyuser</</username>
-      <password>proxypass</password>
-      <host>proxy.host.net</host>
-      <port>80</port>
-      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
-    </proxy>
-    -->
-  </proxies>
-  
-  <profiles>
+	<activeProfiles>
+		<activeProfile>bacen-repositorios</activeProfile>
+	</activeProfiles>
 
-    <!-- Configure the JBoss GA Maven repository -->
-    <profile>
-      <id>jboss-ga-repository</id>
-      <repositories>
-        <repository>
-          <id>jboss-ga-repository</id>
-          <url>http://maven.repository.redhat.com/techpreview/all</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>jboss-ga-plugin-repository</id>
-          <url>http://maven.repository.redhat.com/techpreview/all</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-      </pluginRepositories>
-    </profile>
-    <!-- Configure the JBoss Early Access Maven repository -->
-    <profile>
-      <id>jboss-earlyaccess-repository</id>
-      <repositories>
-        <repository>
-          <id>jboss-earlyaccess-repository</id>
-          <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>jboss-earlyaccess-plugin-repository</id>
-          <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-      </pluginRepositories>
-    </profile>
+	<!-- Mirrors -->
+	<!-- ======= -->
+	<!-- * Espelhos locais (bacen) para os repositórios Maven externos. -->
+	<mirrors>
+		<mirror>
+			<id>bacen-all</id>
+			<name>Repositórios do bacen agrupando todos os repositórios internos e externos (tanto de releases, quanto de snapshots)</name>
+			<url>http://maven/nexus/content/groups/todos</url>
+			<mirrorOf>external:*</mirrorOf>
+		</mirror>
+	</mirrors>
+	
+	<pluginGroups>
+	  <pluginGroup>br.gov.bcb.maven.plugins</pluginGroup>
+	</pluginGroups>
 
-  </profiles>
 
-  <activeProfiles>
-    <!-- Optionally, make the repositories active by default -->
-    <activeProfile>jboss-ga-repository</activeProfile>
-    <activeProfile>jboss-earlyaccess-repository</activeProfile>
-  </activeProfiles>
+	<!-- Proxy -->
+	<!-- ===== -->
+	<!-- * Não utilizar proxy diretamente das estações de desenvolvimento e build. -->
+	<!-- * As dependências são recuperadas do servidor repositório Maven do Bacen. -->
+	<!--
+	<proxies>
+		<proxy>
+			<id>bacenproxy</id>
+			<active>true</active>
+			<protocol>http</protocol>
+			<host>cachelb</host>
+			<port>8080</port>
+            <nonProxyHosts>*.bc</nonProxyHosts>
+		</proxy>
+	</proxies>
+	-->
+    <!---->
+	<!-- Senhas -->
+	<!-- ====== -->
+	<!-- * Usuários e senhas para acesso aos repositórios Maven. -->
+	<!-- * Configure se precisar de permissões especiais. -->
+	<!-- -->
+	<servers>
+		<server>
+			<id>bacen-releases</id>
+			<username></username>
+			<password></password>
+		</server>
+		<server>
+			<id>bacen-snapshots</id>
+			<username></username>
+			<password></password>
+		</server>
+	</servers>
 
 </settings>
