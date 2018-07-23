@@ -138,4 +138,117 @@
         </profile>
 
     </profiles>
+    
+    	<!-- Repositórios -->
+	<!-- ============ -->
+	<profiles>
+		<profile>
+			<id>bacen-repositorios</id>
+			<repositories>
+				<repository>
+					<id>bacen-releases</id>
+					<name>Repositorio Bacen de releases</name>
+					<url>http://maven/nexus/content/groups/releases</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>bacen-snapshots</id>
+					<name>Repositorio Bacen de snapshots</name>
+					<url>http://maven/nexus/content/groups/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>bacen-releases</id>
+					<name>Repositorio Bacen de releases</name>
+					<url>http://maven/nexus/content/groups/releases</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
+					<id>bacen-snapshots</id>
+					<name>Repositorio Bacen de snapshots</name>
+					<url>http://maven/nexus/content/groups/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>bacen-repositorios</activeProfile>
+	</activeProfiles>
+
+	<!-- Mirrors -->
+	<!-- ======= -->
+	<!-- * Espelhos locais (bacen) para os repositórios Maven externos. -->
+	<mirrors>
+		<mirror>
+			<id>bacen-all</id>
+			<name>Repositórios do bacen agrupando todos os repositórios internos e externos (tanto de releases, quanto de snapshots)</name>
+			<url>http://maven/nexus/content/groups/todos</url>
+			<mirrorOf>external:*</mirrorOf>
+		</mirror>
+	</mirrors>
+	
+	<pluginGroups>
+	  <pluginGroup>br.gov.bcb.maven.plugins</pluginGroup>
+	</pluginGroups>
+
+
+	<!-- Proxy -->
+	<!-- ===== -->
+	<!-- * Não utilizar proxy diretamente das estações de desenvolvimento e build. -->
+	<!-- * As dependências são recuperadas do servidor repositório Maven do Bacen. -->
+	<!--
+	<proxies>
+		<proxy>
+			<id>bacenproxy</id>
+			<active>true</active>
+			<protocol>http</protocol>
+			<host>cachelb</host>
+			<port>8080</port>
+            <nonProxyHosts>*.bc</nonProxyHosts>
+		</proxy>
+	</proxies>
+	-->
+    <!---->
+	<!-- Senhas -->
+	<!-- ====== -->
+	<!-- * Usuários e senhas para acesso aos repositórios Maven. -->
+	<!-- * Configure se precisar de permissões especiais. -->
+	<!-- -->
+	<servers>
+		<server>
+			<id>bacen-releases</id>
+			<username></username>
+			<password></password>
+		</server>
+		<server>
+			<id>bacen-snapshots</id>
+			<username></username>
+			<password></password>
+		</server>
+	</servers>
+
 </project>
